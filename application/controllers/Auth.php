@@ -42,8 +42,7 @@ class Auth extends CI_Controller
             // jika usernya aktif
             if ($user['status'] == 1) {
                 // cek password
-                // if ($password == 'arfi0507') {
-                if (password_verify($password, $user['password'])) {              
+                if (password_verify($password, $user['password'])) {
                     $data = [
                         'email' => $user['email'],
                         'level' => $user['level']
@@ -86,7 +85,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'WPU User Registration';
+            $data['title'] = 'myTrash User Registration';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/registration');
             $this->load->view('templates/auth_footer');
@@ -116,8 +115,8 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 
-    public function blocked()
-    {
-        $this->load->view('auth/blocked');
-    }
+    // public function blocked()
+    // {
+    //     $this->load->view('auth/blocked');
+    // }
 }

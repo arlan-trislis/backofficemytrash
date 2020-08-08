@@ -12,6 +12,7 @@ class Admin extends CI_Controller
         $this->load->model('nasabah_m');
         $this->load->model('transaksi_m');
         $this->load->model('kategori_m');
+        $this->load->model('siswa_m');
     }
 
     public function index()
@@ -129,7 +130,7 @@ class Admin extends CI_Controller
 
     public function siswa()
     {
-        $data['title'] = 'Siswa';
+        $data['title'] = 'Data User';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('Role_model', 'role');
 
@@ -144,7 +145,7 @@ class Admin extends CI_Controller
 
     public function siswaregistration()
     {
-        $data['title'] = 'Siswa Registration';
+        $data['title'] = 'User Registration';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
@@ -154,14 +155,10 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function siswaproses() 
+    public function siswaproses()
     {
         $data['title'] = 'Siswa Registration';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        // if ($this->session->userdata('email')) {
-        //     redirect('admin/siswa');
-        // }
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
@@ -206,15 +203,15 @@ class Admin extends CI_Controller
         }
     }
 
-    public function data()
-    {
-        $data['title'] = 'Data Admin';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['admin'] = $this->user_m->get_admin()->result_array();
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/data', $data);
-        $this->load->view('templates/footer');
-    }
+    // public function data()
+    // {
+    //     $data['title'] = 'Data Admin';
+    //     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    //     $data['admin'] = $this->user_m->get_admin()->result_array();
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('admin/data', $data);
+    //     $this->load->view('templates/footer');
+    // }
 }

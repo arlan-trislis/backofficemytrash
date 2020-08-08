@@ -11,30 +11,29 @@ class User_m extends CI_Model
 			'name' => $data['nama'],
 
 			'password' => md5($data['no_rekening']),
-			'level' => 2,
+			'level' => 3,
 			'status' => 1,
 		);
-		$query = $this->db->insert('user',$array);
+		$query = $this->db->insert('user', $array);
 		return $query;
 	}
 
-	public function get($id=null)
+	public function get($id = null)
 	{
-		$this->db->from('user')->order_by('level','ASCENDING');
+		$this->db->from('user')->order_by('level', 'ASCENDING');
 		if ($id != null) {
-			$this->db->where('id',$id);
+			$this->db->where('id', $id);
 		}
 		$query = $this->db->get();
 		return $query;
 	}
-	public function get_admin($id=null)
+	public function get_admin($id = null)
 	{
-		$this->db->from('user')->where('level',1);
+		$this->db->from('user')->where('level', 1);
 		if ($id != null) {
-			$this->db->where('id',$id);
+			$this->db->where('id', $id);
 		}
 		$query = $this->db->get();
 		return $query;
 	}
-
 }

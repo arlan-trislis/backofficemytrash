@@ -10,9 +10,7 @@
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
-
-            <a href="<?= base_url('admin/siswaregistration'); ?>" class="btn btn-primary mb-3">Add New Siswa</a>
-
+            <!-- <a href="<?= base_url('admin/siswaregistration'); ?>" class="btn btn-primary mb-3">Add New User</a> -->
             <table class="table table-hover">
                 <thead>
                     <tr>

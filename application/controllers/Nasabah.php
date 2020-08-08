@@ -1,5 +1,5 @@
-<?php 
-defined('BASEPATH') or exit('No direct script access allowed'); 
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Nasabah extends CI_Controller
 {
@@ -13,10 +13,10 @@ class Nasabah extends CI_Controller
 
     public function index()
     {
-       	$data['title'] = 'Nasabah';
+        $data['title'] = 'Data Nasabah';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['nasabah'] = $this->db->get('nasabah')->result_array();
-        $data['no_rekening'] =$this->nasabah_m->no_rekening();
+        $data['no_rekening'] = $this->nasabah_m->no_rekening();
 
         $this->form_validation->set_rules('nama', 'nama', 'required');
         $this->form_validation->set_rules('alamat', 'alamat', 'required');
@@ -39,9 +39,9 @@ class Nasabah extends CI_Controller
 
     public function nasabahedit($id)
     {
-    	$data['title'] = 'Data Nasabah Edit';
+        $data['title'] = 'Data Nasabah Edit';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['row'] =$this->nasabah_m->get($id)->row();
+        $data['row'] = $this->nasabah_m->get($id)->row();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -72,4 +72,4 @@ class Nasabah extends CI_Controller
             </script>";
         }
     }
-}    
+}

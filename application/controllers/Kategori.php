@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Kategori extends CI_Controller
@@ -12,7 +12,7 @@ class Kategori extends CI_Controller
 
     public function index()
     {
-       	$data['title'] = 'Kategori Sampah';
+        $data['title'] = 'Kategori';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('kategori_m', 'sampah');
         $data['kategori'] = $this->db->get('sampah')->result_array();
@@ -41,7 +41,7 @@ class Kategori extends CI_Controller
 
     public function kategoriedit($id)
     {
-    	$data['title'] = 'Kategori Sampah Edit';
+        $data['title'] = 'Kategori Sampah Edit';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $query = $this->kategori_m->get($id);
         $data['row'] = $query->row();
@@ -75,4 +75,4 @@ class Kategori extends CI_Controller
             </script>";
         }
     }
-}    
+}
