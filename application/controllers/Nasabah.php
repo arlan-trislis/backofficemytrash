@@ -31,7 +31,7 @@ class Nasabah extends CI_Controller
         } else {
             $data = $this->input->post(null, TRUE);
             $this->nasabah_m->add($data);
-            $this->user_m->add_nasabah($data);
+            // $this->user_m->add_nasabah($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New sub menu added!</div>');
             redirect('nasabah');
         }
