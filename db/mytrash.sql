@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2020 at 09:06 AM
+-- Generation Time: Aug 30, 2020 at 02:16 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -51,18 +51,22 @@ CREATE TABLE `nasabah` (
   `alamat` text NOT NULL,
   `no_hp` text NOT NULL,
   `tgl` date NOT NULL DEFAULT current_timestamp(),
-  `saldo` varchar(100) NOT NULL
+  `saldo` text NOT NULL,
+  `password` text NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `nasabah`
 --
 
-INSERT INTO `nasabah` (`id`, `no_rekening`, `nama`, `alamat`, `no_hp`, `tgl`, `saldo`) VALUES
-(17, 'NB2006120001', 'Arfi', 'TEgal', '123', '2020-06-12', '1100'),
-(18, 'NB2006120002', 'Nanda', 'TEGAL', '1234', '2020-06-12', '65500'),
-(19, 'NB2007110001', 'Rian', 'Banjaranyar', '81223', '2020-07-11', '10000'),
-(20, 'NB2007110002', 'Mia', 'Margasari', '08522234', '2020-07-11', '0');
+INSERT INTO `nasabah` (`id`, `no_rekening`, `nama`, `alamat`, `no_hp`, `tgl`, `saldo`, `password`, `status`) VALUES
+(18, 'NB2006120002', 'Nanda', 'TEGAL', '1234', '2020-06-12', '65500', '', 0),
+(19, 'NB2007110001', 'Rian', 'Banjaranyar', '81223', '2020-07-11', '10000', '', 0),
+(20, 'NB2007110002', 'Mia', 'Margasari', '08522234', '2020-07-11', '0', '', 0),
+(32, 'NB2008080001', 'aji', 'tegal', '089', '2020-08-09', '0', '21a0fa73fbe367d5b21bc9fabb3d56bb', 1),
+(33, 'NB2008160001', 'Arlan Ariandi Trislis', 'tegal', '085201205272', '2020-08-16', '2000', 'c734afd2b006b881ceeb3ef331aa1b99', 1),
+(34, 'NB2008300001', 'EKO', 'TEGAL', '081123456789', '2020-08-30', '3000', 'afbcdb0bc7d7aeb962d2f96cc52ccd20', 1);
 
 -- --------------------------------------------------------
 
@@ -83,10 +87,10 @@ CREATE TABLE `sampah` (
 --
 
 INSERT INTO `sampah` (`id`, `kategori`, `harga`, `keterangan`, `qty`) VALUES
-(1, 'Kaca', 4500, 'Botol,Kaca,Cermin', 12),
+(1, 'Kaca', 4500, 'Botol,Kaca,Cermin', 10),
 (2, 'Besi', 3000, 'Seng,Besi', 9),
-(3, 'Plastik', 1500, 'Gelas,botol', 15),
-(7, 'Kardus', 1500, 'Kardus,Kertas,Buku', 14),
+(3, 'Plastik', 1500, 'Gelas,botol', 26),
+(7, 'Kardus', 1500, 'Kardus,Kertas,Buku', 16),
 (8, 'Kertas', 5000, 'Koran, Buku', 0);
 
 -- --------------------------------------------------------
@@ -119,7 +123,15 @@ INSERT INTO `transaksi` (`id`, `no_rek`, `invoice`, `total`, `ket`, `tgl`, `bula
 (166, 'NB2006120001', 'IN2007040004', '500', 2, '2020-07-04', 'Juli 2020'),
 (167, 'NB2007110001', 'IN2007130001', '15000', 1, '2020-07-13', 'Juli 2020'),
 (168, 'NB2007110001', 'IN2007130002', '5000', 2, '2020-07-13', 'Juli 2020'),
-(169, 'Admin', 'IN2007130003', '35000', 3, '2020-07-13', 'Juli 2020');
+(169, 'Admin', 'IN2007130003', '35000', 3, '2020-07-13', 'Juli 2020'),
+(170, 'NB2008080001', 'IN2008080001', '15000', 1, '2020-08-09', 'Agustus 2020'),
+(171, 'NB2008160001', 'IN2008160001', '9000', 1, '2020-08-16', 'Agustus 2020'),
+(172, 'Admin', 'IN2008230001', '20000', 3, '2020-08-23', 'Agustus 2020'),
+(173, 'Admin', 'IN2008230002', '5000', 3, '2020-08-23', 'Agustus 2020'),
+(174, 'NB2008160001', 'IN2008290001', '3000', 1, '2020-08-29', 'Agustus 2020'),
+(175, 'NB2008300001', 'IN2008300001', '4500', 1, '2020-08-30', 'Agustus 2020'),
+(176, 'NB2008300001', 'IN2008300002', '1500', 2, '2020-08-30', 'Agustus 2020'),
+(177, 'NB2008160001', 'IN2008300003', '10000', 2, '2020-08-30', 'Agustus 2020');
 
 -- --------------------------------------------------------
 
@@ -149,7 +161,14 @@ INSERT INTO `transaksi_detail` (`id`, `invoice`, `kategori`, `berat`, `harga`, `
 (70, 'IN2007040003', 'Kaca', '3', '5000', '15000', '2020-07-04 15:13:23'),
 (71, 'IN2007130001', 'Besi', '2', '3000', '6000', '2020-07-13 08:46:28'),
 (72, 'IN2007130001', 'Besi', '3', '3000', '9000', '2020-07-13 08:46:28'),
-(73, 'IN2007130003', 'Besi', '5', '7000', '35000', '2020-07-13 08:55:52');
+(73, 'IN2007130003', 'Besi', '5', '7000', '35000', '2020-07-13 08:55:52'),
+(74, 'IN2008080001', 'Plastik', '10', '1500', '15000', '2020-08-09 00:58:53'),
+(75, 'IN2008160001', 'Kaca', '2', '4500', '9000', '2020-08-16 09:52:22'),
+(76, 'IN2008230001', 'Kaca', '4', '5000', '20000', '2020-08-23 14:01:36'),
+(77, 'IN2008230002', 'Besi', '1', '5000', '5000', '2020-08-23 14:05:19'),
+(78, 'IN2008290001', 'Besi', '1', '3000', '3000', '2020-08-29 15:34:55'),
+(79, 'IN2008300001', 'Kardus', '2', '1500', '3000', '2020-08-30 18:10:54'),
+(80, 'IN2008300001', 'Plastik', '1', '1500', '1500', '2020-08-30 18:10:54');
 
 -- --------------------------------------------------------
 
@@ -161,7 +180,6 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` text CHARACTER SET latin1 DEFAULT NULL,
   `image` text CHARACTER SET latin1 DEFAULT NULL,
-  `telepon` text NOT NULL,
   `password` text CHARACTER SET latin1 DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `name` text CHARACTER SET latin1 DEFAULT NULL,
@@ -173,39 +191,13 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `image`, `telepon`, `password`, `level`, `name`, `status`, `createdDate`) VALUES
-(29, 'superadmin@gmail.com', 'default.jpg', '', '$2y$10$4Sr8xVCzqFAvTVh7NtmYb.x5GqY4pWG4GwcAsVrUnFPY9F3zG7AZi', 1, 'Super Admin', 1, '2020-05-01 00:00:00'),
-(38, 'NB2006020001', 'default.jpg', '', '89a9064e15c552ac4a09a824188de108', 2, 'Arfi', 1, '2020-06-02 00:00:00'),
-(39, 'NB2006080001', 'default.jpg', '', 'f1ea43a0cfb86e960ac9794f5064131c', 2, 'Nanda', 1, '2020-06-08 00:00:00'),
-(40, 'NB2006120001', 'default.jpg', '', 'cdbde5d88227386b99db67f71e0bc713', 2, 'Arfi', 1, '2020-06-12 00:00:00'),
-(41, 'NB2006120002', 'default.jpg', '', 'be187cba08e85e013f5a64ac8d5fc09c', 2, 'Nanda', 1, '2020-06-12 00:00:00'),
-(44, 'NB2007110001', 'default.jpg', '', '1aae8910aaff334d9b20c698fff2173a', 2, 'ARLAN', 1, '2020-07-11 00:00:00'),
-(45, 'NB2007110002', 'default.jpg', '', '72b3b09db96f9b75633cf02d2e7f4ad2', 2, 'Mia', 1, '2020-07-11 00:00:00'),
-(59, 'ra@gmai.com', 'default.jpg', '', '$2y$10$swLBumsGIOMTeFkoRNDLpOj0wTNLvcOUtb8WMSplXCyPsdywJYxXa', 2, 'rikha', 1, '0000-00-00 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `email` text CHARACTER SET latin1 DEFAULT NULL,
-  `telepon` text CHARACTER SET latin1 DEFAULT NULL,
-  `name` text CHARACTER SET latin1 DEFAULT NULL,
-  `createdDate` datetime DEFAULT NULL,
-  `password` text CHARACTER SET latin1 DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `telepon`, `name`, `createdDate`, `password`, `status`, `level`) VALUES
-(6, 'arlan@gmail.com', '085201205272', 'arlan', '2020-07-26 20:00:57', 'e10adc3949ba59abbe56e057f20f883e', 1, 1);
+INSERT INTO `user` (`id`, `email`, `image`, `password`, `level`, `name`, `status`, `createdDate`) VALUES
+(29, 'superadmin@gmail.com', 'default.jpg', '$2y$10$4Sr8xVCzqFAvTVh7NtmYb.x5GqY4pWG4GwcAsVrUnFPY9F3zG7AZi', 1, 'Super Admin', 1, '2020-05-01 00:00:00'),
+(38, 'NB2006020001', 'default.jpg', '89a9064e15c552ac4a09a824188de108', 2, 'Arfi', 1, '2020-06-02 00:00:00'),
+(39, 'NB2006080001', 'default.jpg', 'f1ea43a0cfb86e960ac9794f5064131c', 2, 'Nanda', 1, '2020-06-08 00:00:00'),
+(40, 'NB2006120001', 'default.jpg', 'cdbde5d88227386b99db67f71e0bc713', 2, 'Arfi', 1, '2020-06-12 00:00:00'),
+(41, 'NB2006120002', 'default.jpg', 'be187cba08e85e013f5a64ac8d5fc09c', 2, 'Nanda', 1, '2020-06-12 00:00:00'),
+(66, 'mia@gmail.com', 'default.jpg', '$2y$10$lArfEjJR9hpoeXMNfNKsq.0zG8gsIYXTEl.FzhehaE5qadGaMxZBG', 2, 'Mia', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -366,12 +358,6 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
@@ -403,13 +389,13 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- AUTO_INCREMENT for table `nasabah`
 --
 ALTER TABLE `nasabah`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `sampah`
@@ -421,25 +407,19 @@ ALTER TABLE `sampah`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
